@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>demo</title>
+</head>
+
+<body>
+  <input type="file" id="file">
+  <button id="upload">上传</button>
+  <div>
+    <video src="/video" controls="controls"> 您的浏览器不支持 video 标签。 </video>
+  </div>
+  <script src="./axios.min.js"></script>
+  <script>
+    document.getElementById('upload').onclick = () => {
+      let file = document.getElementById('file').files;
+      console.log(file)
+      let uploadData = new FormData();
+      uploadData.append('avatar', file[0]);
+      axios({
+        method: 'post',
+        url: '/profile',
+        data: uploadData
+      }).then(res=>{
+        console.log(res)
+        if(res.data.success){
+          alert('success')
+        }
+      }).cath(error=>{
+        console.log(error)
+      })
+    }
+  </script> </body>
+
+</html>
